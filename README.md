@@ -5,7 +5,7 @@ A scraper for Forex Factory calendar events.
 ## Installation
 
 ```bash
-pnpm install forexfactory-scraper
+npm install forexfactory-scraper
 ```
 
 ## Usage

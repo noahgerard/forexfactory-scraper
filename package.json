@@ -1,5 +1,5 @@
 {
-  "name": "@noahgerard/forexfactory-scraper",
+  "name": "forexfactory-scraper",
   "version": "1.0.0",
   "description": "A scraper for Forex Factory calendar events.",
   "main": "dist/index.js",
@@ -15,7 +15,6 @@
     "calendar",
     "events"
   ],
-  "private": "true",
   "author": "Noah Gerard",
   "license": "MIT",
   "type": "module",
