@@ -1,7 +1,7 @@
 {
   "name": "forexfactory-scraper",
   "version": "1.0.0",
-  "description": "",
+  "description": "A scraper for Forex Factory calendar events.",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,9 +9,15 @@
     "build": "tsc",
     "dev": "ts-node src/index.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "forex",
+    "scraper",
+    "calendar",
+    "events"
+  ],
+  "private": "true",
+  "author": "Noah Gerard",
+  "license": "MIT",
   "type": "module",
   "devDependencies": {
     "typescript": "^5.7.3",
@@ -20,5 +26,9 @@
   "dependencies": {
     "cheerio": "^1.0.0",
     "got-scraping": "^4.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/forexfactory-scraper.git"
   }
 }
