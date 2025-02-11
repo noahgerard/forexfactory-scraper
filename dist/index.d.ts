@@ -1,5 +1,4 @@
-declare module 'forexfactory-scraper' {
-  export type Event = {
+type Event = {
     date: Date;
     time: string;
     currency: string;
@@ -8,9 +7,10 @@ declare module 'forexfactory-scraper' {
     actual: string | null;
     forecast: string | null;
     previous: string | null;
-  };
-
-  export default class Scraper {
-    public scrapeCalendar(url?: string): Promise<Event[]>;
-  }
+};
+declare class Scraper {
+    scrapeCalendar(url?: string): Promise<Event[]>;
+    private parse;
 }
+export default Scraper;
+//# sourceMappingURL=index.d.ts.map
