@@ -1,5 +1,6 @@
 import { gotScraping } from 'got-scraping';
 import * as cheerio from 'cheerio';
+import { parse, format } from 'date-fns';
 class Scraper {
     async scrapeCalendar(url) {
         const response = await gotScraping({
@@ -46,10 +47,13 @@ class Scraper {
             const forecast = $(element).find('.calendar__forecast').text().trim() || null;
             const previous = $(element).find('.calendar__previous').text().trim() || null;
             if (currency) {
-                let newDate = new Date(lastDate);
-                newDate.setFullYear(new Date().getFullYear());
+                let parsedDate = parse(lastDate, 'EEE\nMMM d', new Date());
+                parsedDate.setFullYear(new Date().getFullYear());
+                if (time && time !== "Tentative") {
+                    parsedDate = parse(`${format(parsedDate, 'yyyy-MM-dd')} ${time}`, 'yyyy-MM-dd h:mma', new Date());
+                }
                 const data = {
-                    date: newDate,
+                    date: parsedDate,
                     time: time || lastTime,
                     currency,
                     impact,
@@ -68,6 +72,6 @@ class Scraper {
     }
 }
 export default Scraper;
-const t = new Scraper();
-t.scrapeCalendar().then(console.log);
+/* const t = new Scraper();
+t.scrapeCalendar().then(console.log); */ 
 //# sourceMappingURL=index.js.map

@@ -97,5 +97,5 @@ class Scraper {
 
 export default Scraper;
 
-const t = new Scraper();
-t.scrapeCalendar().then(console.log);
+/* const t = new Scraper();
+t.scrapeCalendar().then(console.log); */
