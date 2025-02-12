@@ -1,6 +1,6 @@
 import { gotScraping } from 'got-scraping';
 import * as cheerio from 'cheerio';
-import { parse, format } from 'date-fns';
+import { parse } from 'date-fns';
 
 type Event = {
 	date: Date;
@@ -67,11 +67,18 @@ class Scraper {
 	
 			if (currency) {
 				let parsedDate = parse(lastDate, 'EEE MMM d', new Date());
-				parsedDate.setFullYear(new Date().getFullYear());
 
-				if (time && time !== "Tentative") {
-					parsedDate = parse(`${format(lastDate, 'EEE MMM d')} ${time}`, 'EEE MMM d h:mma', new Date());
+				if (time && time !== "Tentative" && time !== "All Day") {
+					const timeSplit = time.match(/(\d{1,2}):(\d{2})([ap]m)/);
+
+					if (timeSplit) {
+						const hours = parseInt(timeSplit[1]) + (timeSplit[3] === 'pm' ? 12 : 0);
+						const minutes = parseInt(timeSplit[2]);
+
+						parsedDate.setHours(hours, minutes);
+					}
 				}
+				
 
 				const data: Event = {
 					date: parsedDate,
