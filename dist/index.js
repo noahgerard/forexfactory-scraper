@@ -46,8 +46,10 @@ class Scraper {
             const forecast = $(element).find('.calendar__forecast').text().trim() || null;
             const previous = $(element).find('.calendar__previous').text().trim() || null;
             if (currency) {
+                let newDate = new Date(lastDate);
+                newDate.setFullYear(new Date().getFullYear());
                 const data = {
-                    date: new Date(lastDate),
+                    date: newDate,
                     time: time || lastTime,
                     currency,
                     impact,
@@ -66,4 +68,6 @@ class Scraper {
     }
 }
 export default Scraper;
+const t = new Scraper();
+t.scrapeCalendar().then(console.log);
 //# sourceMappingURL=index.js.map

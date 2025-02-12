@@ -1,5 +1,6 @@
 import { gotScraping } from 'got-scraping';
 import * as cheerio from 'cheerio';
+import { parse, format } from 'date-fns';
 
 type Event = {
 	date: Date;
@@ -65,8 +66,15 @@ class Scraper {
 			const previous = $(element).find('.calendar__previous').text().trim() || null;
 	
 			if (currency) {
+				let parsedDate = parse(lastDate, 'EEE\nMMM d', new Date());
+				parsedDate.setFullYear(new Date().getFullYear());
+
+				if (time && time !== "Tentative") {
+					parsedDate = parse(`${format(parsedDate, 'yyyy-MM-dd')} ${time}`, 'yyyy-MM-dd h:mma', new Date());
+				}
+
 				const data: Event = {
-					date: new Date(lastDate),
+					date: parsedDate,
 					time: time || lastTime,
 					currency,
 					impact,
@@ -88,3 +96,6 @@ class Scraper {
 }
 
 export default Scraper;
+
+const t = new Scraper();
+t.scrapeCalendar().then(console.log);

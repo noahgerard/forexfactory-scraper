@@ -1,6 +1,6 @@
 {
   "name": "forexfactory-scraper",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "A scraper for Forex Factory calendar events.",
   "main": "dist/index.js",
   "types": "dist/index.js",
@@ -21,11 +21,12 @@
   "license": "MIT",
   "type": "module",
   "devDependencies": {
-    "typescript": "^5.7.3",
-    "ts-node": "^10.4.0"
+    "ts-node": "^10.4.0",
+    "typescript": "^5.7.3"
   },
   "dependencies": {
     "cheerio": "^1.0.0",
+    "date-fns": "^4.1.0",
     "got-scraping": "^4.1.0"
   },
   "repository": {
