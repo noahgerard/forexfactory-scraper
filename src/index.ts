@@ -32,15 +32,15 @@ class Scraper {
 	private parse(body: string) {
 		const $ = cheerio.load(body);
 		const events = $('.calendar__row');
-		let date = '';
+		let lastDate = '';
+		let lastTime = '';
 
 		const parsedEvents: Event[] = [];
 	
 		events.each((index, element) => {
 			const newDate = $(element).find('.calendar__date').text().trim();
 			if (newDate && newDate.length > 0) {
-				date = newDate;
-				console.log(`Date: ${date}`);
+				lastDate = newDate;
 			}
 	
 			const time = $(element).find('.calendar__time').text().trim();
@@ -64,10 +64,10 @@ class Scraper {
 			const forecast = $(element).find('.calendar__forecast').text().trim() || null;
 			const previous = $(element).find('.calendar__previous').text().trim() || null;
 	
-			if (time) {
+			if (currency) {
 				const data: Event = {
-					date: new Date(date),
-					time,
+					date: new Date(lastDate),
+					time: time || lastTime,
 					currency,
 					impact,
 					event,
@@ -77,6 +77,10 @@ class Scraper {
 				};
 				parsedEvents.push(data);
 			}
+
+			if (time) {
+				lastTime = time;
+			}
 		});
 
 		return parsedEvents;
@@ -84,3 +88,9 @@ class Scraper {
 }
 
 export default Scraper;
+
+const scraper = new Scraper();
+
+scraper.scrapeCalendar().then((events) => {
+	console.log(events);
+});
