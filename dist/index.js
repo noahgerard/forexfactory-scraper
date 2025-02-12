@@ -66,8 +66,4 @@ class Scraper {
     }
 }
 export default Scraper;
-const scraper = new Scraper();
-scraper.scrapeCalendar().then((events) => {
-    console.log(events);
-});
 //# sourceMappingURL=index.js.map
