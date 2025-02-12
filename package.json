@@ -1,6 +1,6 @@
 {
   "name": "forexfactory-scraper",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A scraper for Forex Factory calendar events.",
   "main": "dist/index.js",
   "types": "dist/index.js",

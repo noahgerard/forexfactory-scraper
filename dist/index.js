@@ -47,10 +47,10 @@ class Scraper {
             const forecast = $(element).find('.calendar__forecast').text().trim() || null;
             const previous = $(element).find('.calendar__previous').text().trim() || null;
             if (currency) {
-                let parsedDate = parse(lastDate, 'EEE\nMMM d', new Date());
+                let parsedDate = parse(lastDate, 'EEE MMM d', new Date());
                 parsedDate.setFullYear(new Date().getFullYear());
                 if (time && time !== "Tentative") {
-                    parsedDate = parse(`${format(parsedDate, 'yyyy-MM-dd')} ${time}`, 'yyyy-MM-dd h:mma', new Date());
+                    parsedDate = parse(`${format(lastDate, 'EEE MMM d')} ${time}`, 'EEE MMM d h:mma', new Date());
                 }
                 const data = {
                     date: parsedDate,
@@ -73,5 +73,5 @@ class Scraper {
 }
 export default Scraper;
 /* const t = new Scraper();
-t.scrapeCalendar().then(console.log); */ 
+t.scrapeCalendar().then(); */ 
 //# sourceMappingURL=index.js.map
