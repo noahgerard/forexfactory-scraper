@@ -33,20 +33,20 @@ class Scraper {
 	private parse(body: string) {
 		const $ = cheerio.load(body);
 		const events = $('.calendar__row');
-		let lastDate = '';
-		let lastTime = '';
+		let lastParsedDate = '';
+		let lastParsedTime = '';
 
 		const parsedEvents: Event[] = [];
-	
+
 		events.each((index, element) => {
 			const newDate = $(element).find('.calendar__date').text().trim();
 			if (newDate && newDate.length > 0) {
-				lastDate = newDate;
+				lastParsedDate = newDate;
 			}
-	
+
 			const time = $(element).find('.calendar__time').text().trim();
 			const currency = $(element).find('.calendar__currency').text().trim();
-			
+
 			const impactClass = $(element).find('.calendar__impact').children()?.[0]?.attribs?.class;
 			let impact = "Unknown";
 			if (impactClass?.includes('impact-yel')) {
@@ -58,18 +58,25 @@ class Scraper {
 			} else if (impactClass?.includes('impact-none')) {
 				impact = "None";
 			}
-	
+
 			const event = $(element).find('.calendar__event').text().trim();
-	
+
 			const actual = $(element).find('.calendar__actual').text().trim() || null;
 			const forecast = $(element).find('.calendar__forecast').text().trim() || null;
 			const previous = $(element).find('.calendar__previous').text().trim() || null;
-	
+
 			if (currency) {
-				let parsedDate = parse(lastDate, 'EEE MMM d', new Date());
+				let parsedDate = parse(lastParsedDate, 'EEE MMM d', new Date());
+				let parsedTime: string = "";
 
 				if (time && time !== "Tentative" && time !== "All Day") {
-					const timeSplit = time.match(/(\d{1,2}):(\d{2})([ap]m)/);
+					parsedTime = time;
+				} else if (!time) {
+					parsedTime = lastParsedTime;
+				}
+
+				if (parsedTime && parsedTime !== "Tentative" && parsedTime !== "All Day") {
+					const timeSplit = parsedTime.match(/(\d{1,2}):(\d{2})([ap]m)/);
 
 					if (timeSplit) {
 						const hours = parseInt(timeSplit[1]) + (timeSplit[3] === 'pm' ? 12 : 0);
@@ -78,11 +85,10 @@ class Scraper {
 						parsedDate.setHours(hours, minutes);
 					}
 				}
-				
 
 				const data: Event = {
 					date: parsedDate,
-					time: time || lastTime,
+					time: time || lastParsedTime,
 					currency,
 					impact,
 					event,
@@ -94,7 +100,7 @@ class Scraper {
 			}
 
 			if (time) {
-				lastTime = time;
+				lastParsedTime = time;
 			}
 		});
 
@@ -105,4 +111,8 @@ class Scraper {
 export default Scraper;
 
 /* const t = new Scraper();
-t.scrapeCalendar().then(); */
+t.scrapeCalendar().then(
+	(data) => {
+		console.log(data.map(({event, date, time}) => `${event} - ${date} - ${time}`));
+	}
+); */
