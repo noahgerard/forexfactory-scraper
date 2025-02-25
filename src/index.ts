@@ -13,7 +13,9 @@ type Event = {
 	previous: string | null;
 }
 
-class Scraper {
+export type { Event };
+
+export class Scraper {
 	public async scrapeCalendar(url?: string) {
 		const response = await gotScraping({
 			url: url || "https://www.forexfactory.com/calendar",
@@ -107,8 +109,6 @@ class Scraper {
 		return parsedEvents;
 	}
 }
-
-export default Scraper;
 
 /* const t = new Scraper();
 t.scrapeCalendar().then(

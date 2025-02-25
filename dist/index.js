@@ -1,7 +1,7 @@
 import { gotScraping } from 'got-scraping';
 import * as cheerio from 'cheerio';
 import { parse } from 'date-fns';
-class Scraper {
+export class Scraper {
     async scrapeCalendar(url) {
         const response = await gotScraping({
             url: url || "https://www.forexfactory.com/calendar",
@@ -82,7 +82,6 @@ class Scraper {
         return parsedEvents;
     }
 }
-export default Scraper;
 /* const t = new Scraper();
 t.scrapeCalendar().then(
     (data) => {

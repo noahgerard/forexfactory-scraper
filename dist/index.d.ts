@@ -8,9 +8,9 @@ type Event = {
     forecast: string | null;
     previous: string | null;
 };
-declare class Scraper {
+export type { Event };
+export declare class Scraper {
     scrapeCalendar(url?: string): Promise<Event[]>;
     private parse;
 }
-export default Scraper;
 //# sourceMappingURL=index.d.ts.map

@@ -11,7 +11,7 @@ npm install forexfactory-scraper
 ## Usage
 
 ```typescript
-import Scraper from 'forexfactory-scraper';
+import { Scraper } from 'forexfactory-scraper';
 
 const scraper = new Scraper();
 scraper.scrapeCalendar().then(events => {
