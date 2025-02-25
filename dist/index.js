@@ -36,7 +36,7 @@ export class Scraper {
             else if (impactClass?.includes('impact-red')) {
                 impact = "High";
             }
-            else if (impactClass?.includes('impact-orange')) {
+            else if (impactClass?.includes('impact-ora')) {
                 impact = "Medium";
             }
             else if (impactClass?.includes('impact-none')) {
