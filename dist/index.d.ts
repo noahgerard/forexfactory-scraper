@@ -10,7 +10,10 @@ type Event = {
 };
 export type { Event };
 export declare class Scraper {
-    scrapeCalendar(url?: string): Promise<Event[]>;
+    scrapeCalendar(options?: {
+        url?: string;
+        proxyUrl?: string;
+    }): Promise<Event[]>;
     private parse;
 }
 //# sourceMappingURL=index.d.ts.map
