@@ -110,10 +110,3 @@ export class Scraper {
 		return parsedEvents;
 	}
 }
-
-/* const t = new Scraper();
-t.scrapeCalendar().then(
-	(data) => {
-		console.log(data.map(({event, date, time}) => `${event} - ${date} - ${time}`));
-	}
-); */
